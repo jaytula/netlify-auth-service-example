@@ -5,6 +5,10 @@
 
 ## JSON Web Token (JWT)
 
+- Stateless authentication
+- Hard to revoke JWTs
+- Revoking requires making it stateful
+
 ## The web app
 
 ## Getting started
