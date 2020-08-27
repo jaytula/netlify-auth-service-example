@@ -63,6 +63,37 @@ export function Login() {
 npx react-react-app netlify-auth-service-example
 ```
 
+### Set up Netlify Functions workflow
+
+- Create `netlify.toml` and add section `[build]` with `functions = "built-lambda"`
+- Install npm packages as devDependencies: `npm i netlify-lambda npm-run-all -D`
+- Update package.json build scripts:
+
+```json
+{
+  "build": "run-p build:**",
+  "build:app": "react-scripts build",
+  "build:lambda": "netlify-lambda build src/lambda"
+}
+```
+
+- Create folder at `src/lambda`
+- Add lambda function at `src/lambda/hello.js`:
+
+```js
+export async function handler() {
+  return {
+    statusCode: 200,
+    headers: {
+      "Content-Type": "text/plain",
+    },
+    body: "Hello There!",
+  }
+}
+```
+- Add `/build-lambda` to `.gitignore`
+- Check the endpoint `/.netlify/functions/hello` is working
+
 ## Creating the API
 
 ## Getting user information locally
