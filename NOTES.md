@@ -57,6 +57,12 @@ export function Login() {
 
 ## Getting started
 
+### Initialize the repo with create-react-app
+
+```
+npx react-react-app netlify-auth-service-example
+```
+
 ## Creating the API
 
 ## Getting user information locally
