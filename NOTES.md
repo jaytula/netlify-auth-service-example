@@ -96,6 +96,14 @@ export async function handler() {
 
 ## Creating the API
 
+### Signup
+
+### Login
+
+### Logout
+
+### A protected endpoint
+
 ## Getting user information locally
 
 ## Creating a simple client in React
