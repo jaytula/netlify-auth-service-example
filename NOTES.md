@@ -98,6 +98,94 @@ export async function handler() {
 
 ### Signup
 
+- Created `docker-compose.yml` with a mongodb service
+- Add env var `MONGODB_URL` to `.env`: `mongodb://username:password@localhost:37017/auth-service-example`
+- `npm i mongodb`
+- Create file `src/helpers/db-helper.js` to connect to database which is common need for signup and login
+
+```js
+import { MongoClient } from "mongodb"
+
+const dbName = "jwt-authentication-example"
+
+function createClient() {
+  const client = new MongoClient(
+    // REPLACE WITH YOUR CONNECTION STRING
+    `mongodb+srv://your-username:${process.env.MONGODB_PASSWORD}@cluster0-abcdef.mongodb.net/test?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+
+  // We add a usersCollection function to the client object,
+  // this way neither login or signup need to know the name
+  // of the database or the users collection.
+  client.usersCollection = function() {
+    return this.db(dbName).collection("users");
+  }
+
+  return client
+}
+
+export { createClient }
+```
+
+- Create lambda function `src/lambda/signup.js`:
+
+```js
+export async function handler(event) {
+  let errorStatusCode = 500
+
+  try {
+  } catch (err) {
+    return {
+      statusCode: errorStatusCode,
+      body: JSON.stringify({ msg: err.message }),
+    }
+  } finally {
+  }
+}
+```
+
+- Update the `signup.js` to use the helper as follows:
+
+```js
+import { createClient } from "../helpers/db-helper";
+
+export async function handler(event) {
+  const dbClient = createClient()
+  let errorStatusCode = 500
+
+  try {
+    // 1. Connect to the database and get a reference to the `users` collection
+    await dbClient.connect()
+    const users = dbClient.usersCollection()
+  } catch (err) {
+    ...
+  } finally {
+    // Remember to close the database connection
+    dbClient.close()
+  }
+}
+```
+
+- Step 2 is to get email and password from the request.body
+
+```js
+const { email, password } = JSON.parse(event.body)
+```
+
+- Step 3 is to check if user already exists
+
+```js
+// 3. Check to see if the user already exists, if so return error (409 Conflict)
+const existingUser = await users.findOne({ email })
+if (existingUser !== null) {
+  errorStatusCode = 409
+  throw new Error(`A user already exists with the email: ${email}`)
+}
+```
+
+- Install bcryptjs with `npm i bcryptjs`
+
 ### Login
 
 ### Logout
