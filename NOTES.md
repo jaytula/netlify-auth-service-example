@@ -186,6 +186,23 @@ if (existingUser !== null) {
 
 - Install bcryptjs with `npm i bcryptjs`
 
+- Step 4 is hashing the password
+
+```js
+// 4. Get a salted hash of the password
+const passwordHash = await bcrypt.hash(password, 10);
+```
+
+- Step 5 is insert into the 'users' collection
+
+```js
+// 5. Insert the email and the hashed password in the `users` collection
+const { insertedId } = await users.insertOne({
+  email,
+  password: passwordHash,
+})
+```
+
 ### Login
 
 ### Logout

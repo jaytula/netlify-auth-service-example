@@ -5,7 +5,7 @@ const dbName = "jwt-authentication-example"
 function createClient() {
   const client = new MongoClient(
     // REPLACE WITH YOUR CONNECTION STRING
-    `mongodb+srv://your-username:${process.env.MONGODB_PASSWORD}@cluster0-abcdef.mongodb.net/test?retryWrites=true&w=majority`,
+    process.env.MONGODB_URL,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
 
