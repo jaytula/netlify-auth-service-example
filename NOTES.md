@@ -203,6 +203,23 @@ const { insertedId } = await users.insertOne({
 })
 ```
 
+- Figure out base64 encoding and decoding for environment variables:
+
+Refer to here: https://github.com/jaytula/netlify-functions-workshop/blob/c4b2ccf32a2f5130c5036e0b210650bb8435b28c/lessons/core-concepts/6-using-a-database/NOTES.md#google-sheets
+
+**Decoding**
+
+```js
+var cert = new Buffer(process.env.HTTPS_CA_CERTIFICATE, 'base64').toString('ascii');
+```
+
+- Create public/private keypair
+
+```shell
+ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
+openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
+```
+
 ### Login
 
 ### Logout
