@@ -220,6 +220,13 @@ ssh-keygen -t rsa -P "" -b 4096 -m PEM -f jwtRS256.key
 openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
 ```
 
+**From command-line**
+
+```shell
+base64 -w 0 somefile.key
+base64 -w 0 somefile.key | base64 --decode
+```
+
 ### Login
 
 ### Logout
