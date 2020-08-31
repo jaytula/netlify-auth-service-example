@@ -227,6 +227,12 @@ base64 -w 0 somefile.key
 base64 -w 0 somefile.key | base64 --decode
 ```
 
+- Store base64-encoded private key in env var `JWT_SECRET_KEY`
+- Create new file `src/helpers/jwt-helper.js`
+- install npm packages: `jsonwebtoken` `cookie`
+- Create helper function `createJwtCookie(userId, email)` in new file and export it as a named export
+
+
 ### Login
 
 ### Logout
