@@ -6,6 +6,12 @@ const createJwtCookie = (userId, email) => {
   const secretKey = new Buffer(process.env.JWT_SECRET_KEY, "base64").toString(
     "ascii"
   );
+
+  // 7. Create a JWT with the registered user and email as the payload
+  const token = jwt.sign({ userId, email }, secretKey, {
+    algorithm: "RS256",
+    expiresIn: "100 days",
+  });
 };
 
-export { createJwtCookie }
+export { createJwtCookie };
