@@ -1,5 +1,6 @@
 import { createClient } from "../helpers/db-helper";
 import bcrypt from "bcryptjs";
+import { createJwtCookie } from "../helpers/jwt-helper";
 
 export async function handler(event) {
   const dbClient = createClient();
@@ -28,6 +29,16 @@ export async function handler(event) {
       email,
       password: passwordHash,
     });
+
+    // 9. Return the user id and Set-Cookie header with the JWT cookie
+    return {
+      statusCode: 200,
+      headers: {
+        "Set-Cookie": createJwtCookie(insertedId, email),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: insertedId, email }),
+    };
   } catch (err) {
     // ...
   } finally {
