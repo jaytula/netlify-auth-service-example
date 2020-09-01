@@ -232,6 +232,7 @@ base64 -w 0 somefile.key | base64 --decode
 - install npm packages: `jsonwebtoken` `cookie`
 - Create helper function `createJwtCookie(userId, email)` in new file and export it as a named export
 
+Steps 6, 7, 8 are in `jwt-helper.js`
 
 ### Login
 

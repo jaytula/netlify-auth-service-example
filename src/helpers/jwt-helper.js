@@ -12,6 +12,15 @@ const createJwtCookie = (userId, email) => {
     algorithm: "RS256",
     expiresIn: "100 days",
   });
+
+  // 8. Serialize the JWT in a secure http-only cookie
+  const jwtCookie = cookie.serialize("jwt", token, {
+    secure: true,
+    httpOnly: true,
+    path: "/"
+  })
+
+  return jwtCookie;
 };
 
 export { createJwtCookie };
