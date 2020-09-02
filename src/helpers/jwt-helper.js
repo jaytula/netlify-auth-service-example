@@ -3,7 +3,7 @@ import cookie from "cookie";
 
 const createJwtCookie = (userId, email) => {
   // 6. Get the secret key, used to sign the JWT, from an environment variable
-  const secretKey = new Buffer(process.env.JWT_SECRET_KEY, "base64").toString(
+  const secretKey = Buffer.from(process.env.JWT_SECRET_KEY, "base64").toString(
     "ascii"
   );
 

@@ -40,6 +40,7 @@ export async function handler(event) {
       body: JSON.stringify({ id: insertedId, email }),
     };
   } catch (err) {
+    console.log(err);
     // ...
   } finally {
     // Remember to close the database connection
