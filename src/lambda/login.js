@@ -7,6 +7,9 @@ export const handler = async event => {
     // 1. Connect to the database and get a reference to the `users` collection
     await dbClient.connect();
     const users = dbClient.usersCollection();
+
+    // 2. Get the email and password from the request body
+    const { email, password } = JSON.parse(event.body);
   } catch (err) {
     return {
       statusCode: errorStatusCode,
