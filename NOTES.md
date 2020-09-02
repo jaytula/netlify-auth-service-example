@@ -236,6 +236,15 @@ Steps 6, 7, 8 are in `jwt-helper.js`
 
 ### Login
 
+```
+// 1. Connect to the database and get a reference to the `users` collection
+// 2. Get the email and password from the request body
+// 3. Check to see if the user exists, if not return error (401 Unauthorized)
+// 4. Compare the password, if it doesn't match return error (401 Unauthorized)
+// 5. Create a JWT and serialize as a secure http-only cookie
+// 6. Return the user id and a Set-Cookie header with the JWT cookie
+```
+
 ### Logout
 
 ### A protected endpoint
