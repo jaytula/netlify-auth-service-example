@@ -1,4 +1,5 @@
 import { createClient } from "../helpers/db-helper";
+import bcrypt from 'bcryptjs'
 
 export const handler = async event => {
   const dbClient = createClient();
@@ -17,7 +18,14 @@ export const handler = async event => {
       errorStatusCode = 401;
       throw new Error('Invalid password or email');
     }
-    
+
+    // 4. Compare the password, if it doesn't match return error (401 Unauthorized)
+    const matches = await bcrypt.compare(password, existingUser.password);
+    if(matches == null) {
+      errorStatusCode = 401;
+      throw new Error('Invalid password or email');
+    }
+
   } catch (err) {
     return {
       statusCode: errorStatusCode,
