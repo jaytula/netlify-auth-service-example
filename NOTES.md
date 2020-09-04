@@ -245,6 +245,14 @@ Steps 6, 7, 8 are in `jwt-helper.js`
 // 6. Return the user id and a Set-Cookie header with the JWT cookie
 ```
 
+#### Testing with Postman
+
+- Startup mongodb container with `docker-compose up`
+- Check with Compass what is in it
+- Setup up tunnel with `lt -h https://serverless.social -p 8888 some-fixed-name
+- Run `netlify dev`
+- Endpoint is `/.netlify/functions/login` Send JSON body with `email` and `password`
+
 ### Logout
 
 ### A protected endpoint
