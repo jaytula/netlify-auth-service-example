@@ -1,5 +1,7 @@
 import { createClient } from "../helpers/db-helper";
 import bcrypt from 'bcryptjs'
+import { createJwtCookie } from "../helpers/jwt-helper";
+
 
 export const handler = async event => {
   const dbClient = createClient();
@@ -25,6 +27,11 @@ export const handler = async event => {
       errorStatusCode = 401;
       throw new Error('Invalid password or email');
     }
+
+    // 5. Create a JWT and serialize as a secure http-only cookie
+    const userId = existingUser._id;
+    const jwtCookie = createJwtCookie(userId, email);
+
 
   } catch (err) {
     return {
