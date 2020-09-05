@@ -255,6 +255,31 @@ Steps 6, 7, 8 are in `jwt-helper.js`
 
 ### Logout
 
+create `clearCookie` in `jwt-helper.js`
+
+```js
+const clearCookie = () => {
+  return "jwt=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+}
+```
+
+**src/lambda/logout.js**
+
+```js
+import { clearCookie } from '../helpers/jwt-helper'
+
+export const handler = async () => {
+  return {
+    statusCode: 200,
+    headers: {
+      "Set-Cookie": clearCookie(),
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: "Logged out successfully" })
+  }
+}
+```
+
 ### A protected endpoint
 
 ## Getting user information locally
