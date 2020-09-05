@@ -27,4 +27,6 @@ const clearCookie = () => {
   return "jwt=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
 }
 
-export { createJwtCookie, clearCookie };
+const publicKey = Buffer.from(process.env.JWT_PUBLIC_KEY, 'base64').toString('ascii');
+
+export { createJwtCookie, clearCookie, publicKey };
