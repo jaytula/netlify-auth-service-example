@@ -14,7 +14,6 @@ export const handler = async event => {
     };
   }
 
-  console.log("xyz");
   try {
     const payload = jwt.verify(cookies.jwt, publicKey);
     return {
