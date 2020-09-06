@@ -1,5 +1,5 @@
 import cookie from "cookie";
-import { publicKey } from "./jwt-helpers";
+import { publicKey } from "../helpers/jwt-helper";
 import jwt from "jsonwebtoken";
 
 export const handler = async event => {
