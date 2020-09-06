@@ -14,17 +14,18 @@ export const handler = async event => {
     };
   }
 
+  console.log("xyz");
   try {
     const payload = jwt.verify(cookies.jwt, publicKey);
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
-        body: JSON.stringify({
-          userId: payload.userId,
-          email: payload.email,
-        }),
       },
+      body: JSON.stringify({
+        userId: payload.userId,
+        email: payload.email,
+      }),
     };
   } catch (err) {
     return { statusCode: 401, body: JSON.stringify({ msg: err.message }) };
