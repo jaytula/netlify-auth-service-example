@@ -329,6 +329,91 @@ the cookie in JavaScript.
 
 ## Creating a simple client in React
 
+- Create file `src/providers/auth-provider.js
+
+```js
+import React, { createContext, useContext } from "react"
+
+const AuthContext = createContext({});
+
+export const useAuth = () => useContext(AuthContext)
+
+export const AuthProvider = ({ children }) => {
+  return (
+    <AuthContext.Provider value={{user, signup, login, logout}}>
+      {children}
+    </AuthContext.Provider>
+  )
+}
+```
+
+- Create helper function `sendRequest`
+
+```js
+const sendRequest = async (endpoint, body, successCallback) => {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Accept: "application/json"
+    }
+  };
+
+  if(body) {
+    requestOptions.headers["Content-Type"] = "application/json";
+    requestOptions.body = JSON.stringify(body);
+  }
+
+  const response = await fetch(
+    `/.netlify/functions/${endpoint}`,
+    requestOptions
+  );
+
+  if(response.ok) {
+    const responseBody = await response.json();
+    successCallback(responseBody);
+  }
+}
+```
+
+- Provide `AuthProvider` with constants `signup`, `login`, `logout`:
+
+```js
+const signup = user => sendRequest("signup", user, saveUser);
+const login = user => sendRequest("user", user, saveUser);
+const logout = () => sendRequest("logout", undefined, deleteUser);
+```
+
+- Define `saveUser` and `deleteUser` as follows:
+
+```js
+const localUserJson = localStorage.getItem("user");
+const localUser = localUserJson && JSON.parse(localUserJson);
+const [user, setUser] = useState(localUser);
+
+const saveUser = user => {
+  setUser(user);
+  localStorage.setItem("user", JSON.stringify(user))
+}
+
+const deleteUser = () => {
+  setUser(null);
+  localStorange.removeItem("user");
+}
+```
+
+- Lastly wrap `App` component with `AuthProvider`
+
+```jsx
+import {AuthProvider} from './providers/auth-provider'
+
+ReactDOM.render(
+  <AuthProvider>
+    <App>
+  </AuthProvider>,
+  document.getElementById("root");
+)
+```
+
 ## Conclusion
 
 ## References
