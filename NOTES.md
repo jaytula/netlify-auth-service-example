@@ -397,7 +397,7 @@ const saveUser = user => {
 
 const deleteUser = () => {
   setUser(null);
-  localStorange.removeItem("user");
+  localStorage.removeItem("user");
 }
 ```
 
