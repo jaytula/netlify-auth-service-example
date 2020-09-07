@@ -323,6 +323,10 @@ export const handler = async event => {
 
 ## Getting user information locally
 
+- We use an HTTP-only cookie to protect agains XSS attacks but this means we can't access
+the cookie in JavaScript.
+- We'll store the user information in local storage on login and we'll remove it if we get a 401.
+
 ## Creating a simple client in React
 
 ## Conclusion
