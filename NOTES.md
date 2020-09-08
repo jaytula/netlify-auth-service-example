@@ -414,6 +414,64 @@ ReactDOM.render(
 )
 ```
 
+## Front-end
+
+### `./UnauthenticatedApp.js`
+
+```jsx
+import React from "react";
+import { Route, Switch, Redirect } from "wouter";
+
+import { Login } from "./pages/Login";
+import { Signup } from "./pages/Signup";
+
+function UnauthenticatedApp() {
+  return (
+    <Switch>
+      <Route path="/">
+        <Redirect to="login" />
+      </Route>
+      <Route path="/login">
+        <Login />
+      </Route>
+      <Route path="/signup">
+        <Signup />
+      </Route>
+      <Route path="/:rest*">404, not found!</Route>
+    </Switch>
+  );
+}
+
+export { UnauthenticatedApp };
+```
+
+### `./AuthenticatedApp.js`
+
+```jsx
+import React from "react";
+import { Route, Switch, Redirect } from "wouter";
+import { Home } from "./pages/Home";
+
+function AuthenticatedApp() {
+  return (
+    <Switch>
+      <Route path="/">
+        <Home />
+      </Route>
+      <Route path="/login">
+        <Redirect to="/" />
+      </Route>
+      <Route path="/signup">
+        <Redirect to="/" />
+      </Route>
+      <Route path="/:rest*">404, not found!</Route>
+    </Switch>
+  );
+}
+
+export { AuthenticatedApp };
+```
+
 ## Conclusion
 
 ## References
