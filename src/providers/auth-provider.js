@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signup = user => sendRequest("signup", user, saveUser);
-  const login = user => sendRequest("user", user, saveUser);
+  const login = user => sendRequest("login", user, saveUser);
   const logout = () => sendRequest("logout", undefined, deleteUser);
 
   return (
