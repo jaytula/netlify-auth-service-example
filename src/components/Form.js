@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-function Form(props) {
+const Form = ({ onSubmit, title, inputs }) => {
   const [input, setInput] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async e => {
+  const submitHandler = async e => {
     e.preventDefault();
 
     setLoading(true);
     try {
-      await props.onSubmit(input);
+      await onSubmit(input);
     } finally {
       setLoading(false);
     }
@@ -18,10 +18,10 @@ function Form(props) {
 
   return (
     <>
-      <h3>{props.title}</h3>
-      <form onSubmit={onSubmit}>
+      <h3>{title}</h3>
+      <form onSubmit={submitHandler}>
         <fieldset disabled={loading} aria-busy={loading}>
-          {props.inputs.map(i => (
+          {inputs.map(i => (
             <label key={i.name}>
               {i.name}
               <input
@@ -39,7 +39,7 @@ function Form(props) {
       </form>
     </>
   );
-}
+};
 
 Form.propTypes = {
   title: PropTypes.string.isRequired,
@@ -47,11 +47,11 @@ Form.propTypes = {
     PropTypes.shape(
       {
         name: PropTypes.string.isRequired,
-        type: PropTypes.string
+        type: PropTypes.string,
       }.isRequired
     )
   ),
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export { Form };
