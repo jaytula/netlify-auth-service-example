@@ -22,7 +22,6 @@ export const handler = async event => {
 
     // 4. Compare the password, if it doesn't match return error (401 Unauthorized)
     const matches = await bcrypt.compare(password, existingUser.password);
-    console.log(matches);
     if (!matches) {
       console.log('got in here');
       errorStatusCode = 401;
