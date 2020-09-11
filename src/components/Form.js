@@ -9,11 +9,8 @@ const Form = ({ onSubmit, title, inputs }) => {
     e.preventDefault();
 
     setLoading(true);
-    try {
-      await onSubmit(input);
-    } finally {
-      setLoading(false);
-    }
+    const response = await onSubmit(input);
+    if(!response.ok) setLoading(false);
   };
 
   return (

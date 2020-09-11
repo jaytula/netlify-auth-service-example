@@ -22,6 +22,7 @@ const sendRequest = async (endpoint, body, successCallback) => {
     const responseBody = await response.json();
     successCallback(responseBody);
   }
+  return response;
 };
 
 const AuthContext = createContext({});
