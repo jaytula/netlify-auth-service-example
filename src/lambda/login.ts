@@ -1,17 +1,17 @@
-import { createClient } from "../helpers/db-helper";
+import { createClient, usersCollection } from "../helpers/db-helper";
 import bcrypt from "bcryptjs";
 import { createJwtCookie } from "../helpers/jwt-helper";
+import { APIGatewayProxyHandler } from "aws-lambda";
 
-export const handler = async event => {
+export const handler: APIGatewayProxyHandler = async event => {
   const dbClient = createClient();
   let errorStatusCode = 500;
   try {
     // 1. Connect to the database and get a reference to the `users` collection
     await dbClient.connect();
-    const users = dbClient.usersCollection();
-
+    const users = usersCollection(dbClient);
     // 2. Get the email and password from the request body
-    const { email, password } = JSON.parse(event.body);
+    const { email, password } = JSON.parse(event.body as string);
 
     // 3. Check to see if the user exists, if not return error (401 Unauthorized)
     const existingUser = await users.findOne({ email });

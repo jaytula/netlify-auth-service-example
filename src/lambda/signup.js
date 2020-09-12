@@ -1,4 +1,4 @@
-import { createClient } from "../helpers/db-helper";
+import { createClient, usersCollection } from "../helpers/db-helper";
 import bcrypt from "bcryptjs";
 import { createJwtCookie } from "../helpers/jwt-helper";
 
@@ -9,7 +9,7 @@ export async function handler(event) {
   try {
     // 1. Connect to the database and get a reference to the `users` collection
     await dbClient.connect();
-    const users = dbClient.usersCollection();
+    const users = usersCollection(dbClient);
 
     // 2. Get the email and password from the request body
     const { email, password } = JSON.parse(event.body);
