@@ -4,6 +4,6 @@ export async function handler() {
     headers: {
       "Content-Type": "text/plain",
     },
-    body: "Hello There!",
+    body: "Hello There, yeeah!",
   };
 }
