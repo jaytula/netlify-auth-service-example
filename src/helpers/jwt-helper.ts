@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
 
-const createJwtCookie = (userId, email) => {
+const createJwtCookie = (userId: string, email: string) => {
   // 6. Get the secret key, used to sign the JWT, from an environment variable
-  const secretKey = Buffer.from(process.env.JWT_SECRET_KEY, "base64").toString(
+  const secretKey = Buffer.from(process.env.JWT_SECRET_KEY as string, "base64").toString(
     "ascii"
   );
 
@@ -27,6 +27,6 @@ const clearCookie = () => {
   return "jwt=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
 }
 
-const publicKey = Buffer.from(process.env.JWT_PUBLIC_KEY, 'base64').toString('ascii');
+const publicKey = Buffer.from(process.env.JWT_PUBLIC_KEY as string, 'base64').toString('ascii');
 
 export { createJwtCookie, clearCookie, publicKey };
